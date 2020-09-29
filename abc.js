@@ -3,6 +3,25 @@ const loading = document.querySelector(".loading");
 
 var index = 1;
 
+var myInit = {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  mode: "cors",
+  cache: "default",
+};
+
+let myRequest = new Request("./colleges.json", myInit);
+
+fetch(myRequest)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    console.log(data);
+  });
+
 // $(function () {
 //   // scroll all the way down
 //   $("html, body").scrollTop($(document).height() - ($(window).height() + 280));
