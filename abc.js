@@ -37,8 +37,11 @@ function showLoading() {
 function callData() {
   for (let i = 0; i < 10; i++) {
     console.log("callData called", i);
+    console.log("getPost index called", index);
     getPost();
   }
+
+  console.log("-------------------------------------------------");
 }
 
 async function getPost() {
@@ -46,7 +49,6 @@ async function getPost() {
     const postResponse = await fetch(
       `https://jsonplaceholder.typicode.com/posts/${index++}`
     );
-    console.log("getPost index called", index);
 
     const postData = await postResponse.json();
 
