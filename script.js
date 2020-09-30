@@ -4,7 +4,8 @@ const loading = document.querySelector(".loading");
 let lastLoaded = true;
 var index = 0;
 fetch(
-  "https://cors-anywhere.herokuapp.com/https://raw.githubusercontent.com/sunilkrbajpai/ecom/master/db.json"
+  // "https://cors-anywhere.herokuapp.com/https://raw.githubusercontent.com/sunilkrbajpai/ecom/master/db.json"
+  "https://cors-anywhere.herokuapp.com/https://raw.githubusercontent.com/sunilkrbajpai/CollegeDunia/master/colleges.json"
 )
   .then((response) => {
     return response.json();
