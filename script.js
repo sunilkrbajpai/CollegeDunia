@@ -4,8 +4,7 @@ const loading = document.querySelector(".loading");
 let lastLoaded = true;
 var index = 0;
 fetch(
-  // "https://cors-anywhere.herokuapp.com/https://raw.githubusercontent.com/sunilkrbajpai/ecom/master/db.json"
-  "https://cors-anywhere.herokuapp.com/https://raw.githubusercontent.com/sunilkrbajpai/CollegeDunia/master/colleges.json"
+  "https://cors-anywhere.herokuapp.com/https://raw.githubusercontent.com/sunilkrbajpai/ecom/master/colleges.json"
 )
   .then((response) => {
     return response.json();
@@ -58,6 +57,7 @@ function addDataToDOM(data) {
   const postElement = document.createElement("div");
   postElement.classList.add("blog-post");
 
+  // render card
   postElement.innerHTML = `
   <p class="ribbon">Promoted</p>
     <img src=assets/${data.post.image} class="image"/>
