@@ -3,13 +3,16 @@
 * {
   box-sizing: border-box;
 }
-
 body {
   font-family: "Open Sans", sans-serif;
   margin: 0px auto;
   text-align: center;
 }
-
+.heading {
+  color: rgb(245, 154, 50);
+  margin-top: 10px;
+  text-decoration: underline;
+}
 .container {
   margin: 0 auto;
   display: flex;

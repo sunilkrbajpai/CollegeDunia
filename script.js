@@ -1,8 +1,8 @@
-const container = document.getElementById("container");
+const container = (element = document.getElementById("container"));
 const loading = document.querySelector(".loading");
 
+let lastLoaded = true;
 var index = 0;
-
 fetch(
   "https://cors-anywhere.herokuapp.com/https://raw.githubusercontent.com/sunilkrbajpai/ecom/master/db.json"
 )
@@ -11,12 +11,10 @@ fetch(
   })
   .then((data) => {
     // Work with JSON data here
-    // console.log(data);
 
     // show initial 10 colleges details
     for (let i = 0; i < 10; i++, index++) {
       let x = { post: data.colleges[index] };
-      console.log(x);
       addDataToDOM(x);
     }
 
@@ -26,48 +24,45 @@ fetch(
         window.innerHeight + window.pageYOffset >=
         document.body.offsetHeight
       ) {
-        if (index < data.colleges.length) {
-          console.log("called loading", data.colleges.length);
-          //show animation
-          showLoading();
-        } else {
-          loading.classList.remove("show");
+        if (lastLoaded) {
+          lastLoaded = false;
+          if (index < data.colleges.length - 1) showLoading();
+          // if (index >= 49) loading.classList.remove("show");
         }
       }
     };
 
+    // show loading image and call function to append data
     function showLoading() {
       loading.classList.add("show");
-      console.log("show loading called", index);
       setTimeout(callData, 2000);
     }
 
+    // add data to DOM
     function callData() {
-      for (let i = 0; i < 10, index < 50; i++, index++) {
+      for (let i = 0; i < 10; i++, index++) {
         let x = { post: data.colleges[index] };
-        console.log(x);
         addDataToDOM(x);
       }
-      loading.classList.remove("show");
+      lastLoaded = true;
     }
   })
   .catch((err) => {
-    alert("Not able to fetch data !", err);
     // Do something for an error here
+    alert("Not able to fetch data !", err);
   });
 
+// add data to DOM within container
 function addDataToDOM(data) {
   const postElement = document.createElement("div");
   postElement.classList.add("blog-post");
-  // <p class="ribbon">Promoted</p>
 
   postElement.innerHTML = `
   <p class="ribbon">Promoted</p>
-    <img src=${data.post.image} class="image"/>
+    <img src=assets/${data.post.image} class="image"/>
     <span class="tags">${data.post.tags[0]}</span>
     <span class="rank">#${data.post.ranking}</span>
     <span class="rating">${data.post.rating}/5 </span>
-
     <h2 class="title">${data.post.college_name}</h2>
     <span> ${data.post.nearest_place[0]} |</span>
     <span class="discount">${data.post.discount}</span>
@@ -81,5 +76,6 @@ function addDataToDOM(data) {
     `;
   container.appendChild(postElement);
 
+  // hide loader
   loading.classList.remove("show");
 }
