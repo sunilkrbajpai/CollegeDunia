@@ -5,19 +5,16 @@
 }
 
 body {
-  /* background-color: #f5aeae; */
   font-family: "Open Sans", sans-serif;
-  /* padding-bottom: 100px; */
   margin: 0px auto;
   text-align: center;
 }
 
 .container {
   margin: 0 auto;
-  /* display: inline-flex;
-  flex: 1; */
-  border: 1px solid red;
-  /* display: flex; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .blog-post {
@@ -26,7 +23,6 @@ body {
   border: 1px solid lightgray;
   box-shadow: 0px 1px 2px rgba(50, 50, 50, 0.1),
     0px 2px 4px rgba(60, 60, 60, 0.1);
-  /* float: left; */
   text-align: left;
   border-radius: 4px;
   max-width: 600px;
@@ -55,11 +51,6 @@ body {
   font-size: large;
   line-height: 0.2em;
 }
-/* 
-.text {
-  color: #555;
-  margin: 20px 0;
-} */
 .image {
   width: 100%;
   filter: brightness(50%);
@@ -153,47 +144,6 @@ p {
   top: 25px;
   margin-right: -110px;
 }
-
-/* .user-info {
-  display: flex;
-  align-items: center;
-}
-
-.user-info img {
-  border-radius: 50%;
-  height: 30px;
-  width: 30px;
-}
-
-.user-info span {
-  font-size: 13px;
-  margin-left: 10px;
-}
-
-.loading {
-  opacity: 0;
-  display: flex;
-  position: fixed;
-  bottom: 50px;
-  left: 50%;
-  transform: translateX(-50%);
-  transition: opacity 0.3s ease-in;
-}
-
-.loading.show {
-  opacity: 1;
-}
-
-.ball {
-  background-color: #777;
-  border-radius: 50%;
-  margin: 5px;
-  height: 10px;
-  width: 10px;
-  animation: jump 0.5s ease-in infinite;
-} */
-
-/*  */
 .loader {
   border: 16px solid #f3f3f3; /* Light grey */
   border-top: 16px solid #3498db; /* Blue */
@@ -219,25 +169,6 @@ p {
   }
 }
 
-/*  */
-.ball:nth-of-type(2) {
-  animation-delay: 0.1s;
-}
-
-.ball:nth-of-type(3) {
-  animation-delay: 0.2s;
-}
-
-@keyframes jump {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-}
 .ribbon {
   background: #3975e4;
   height: 40px;
@@ -265,12 +196,3 @@ p {
   left: -45px;
   z-index: 1;
 }
-/* .ribbon:after {
-  content: "";
-  border: 48px solid transparent;
-  border-left-color: #3c485f;
-  border-left-width: 12px;
-  position: absolute;
-  top: 0;
-  right: -60px;
-} */

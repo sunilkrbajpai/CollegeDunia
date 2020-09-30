@@ -11,7 +11,7 @@ fetch(
   })
   .then((data) => {
     // Work with JSON data here
-    console.log(data);
+    // console.log(data);
 
     // show initial 10 colleges details
     for (let i = 0; i < 10; i++, index++) {
@@ -26,26 +26,33 @@ fetch(
         window.innerHeight + window.pageYOffset >=
         document.body.offsetHeight
       ) {
-        if (index < data.colleges.length)
-          // show the loading animation
+        if (index < data.colleges.length) {
+          console.log("called loading", data.colleges.length);
+          //show animation
           showLoading();
+        } else {
+          loading.classList.remove("show");
+        }
       }
     };
 
     function showLoading() {
       loading.classList.add("show");
+      console.log("show loading called", index);
       setTimeout(callData, 2000);
     }
 
     function callData() {
-      for (let i = 0; i < 10; i++, index++) {
+      for (let i = 0; i < 10, index < 50; i++, index++) {
         let x = { post: data.colleges[index] };
         console.log(x);
         addDataToDOM(x);
       }
+      loading.classList.remove("show");
     }
   })
   .catch((err) => {
+    alert("Not able to fetch data !", err);
     // Do something for an error here
   });
 
@@ -76,5 +83,3 @@ function addDataToDOM(data) {
 
   loading.classList.remove("show");
 }
-
-// callData();
