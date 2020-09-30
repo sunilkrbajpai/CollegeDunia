@@ -55,7 +55,7 @@ fetch(
 // add data to DOM within container
 function addDataToDOM(data) {
   const postElement = document.createElement("div");
-  postElement.classList.add("blog-post");
+  postElement.classList.add("card");
 
   // render card
   postElement.innerHTML = `
