@@ -1,93 +1,80 @@
 const container = document.getElementById("container");
 const loading = document.querySelector(".loading");
 
-var index = 1;
+var index = 0;
 
-var myInit = {
-  method: "GET",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  mode: "cors",
-  cache: "default",
-};
-
-let myRequest = new Request("./colleges.json", myInit);
-
-fetch(myRequest)
-  .then(function (response) {
+fetch(
+  "https://cors-anywhere.herokuapp.com/https://raw.githubusercontent.com/sunilkrbajpai/ecom/master/db.json"
+)
+  .then((response) => {
     return response.json();
   })
-  .then(function (data) {
+  .then((data) => {
+    // Work with JSON data here
     console.log(data);
+
+    // show initial 10 colleges details
+    for (let i = 0; i < 10; i++, index++) {
+      let x = { post: data.colleges[index] };
+      console.log(x);
+      addDataToDOM(x);
+    }
+
+    // on scroll to bottom function
+    window.onscroll = function (ev) {
+      if (
+        window.innerHeight + window.pageYOffset >=
+        document.body.offsetHeight
+      ) {
+        if (index < data.colleges.length)
+          // show the loading animation
+          showLoading();
+      }
+    };
+
+    function showLoading() {
+      loading.classList.add("show");
+      setTimeout(callData, 2000);
+    }
+
+    function callData() {
+      for (let i = 0; i < 10; i++, index++) {
+        let x = { post: data.colleges[index] };
+        console.log(x);
+        addDataToDOM(x);
+      }
+    }
+  })
+  .catch((err) => {
+    // Do something for an error here
   });
-
-// $(function () {
-//   // scroll all the way down
-//   $("html, body").scrollTop($(document).height() - ($(window).height() + 280));
-//   alert("scrolled");
-// });
-
-// window.addEventListener("scroll", () => {
-//   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-
-//   console.log({ scrollTop, scrollHeight, clientHeight });
-
-//   if (clientHeight + scrollTop >= scrollHeight) {
-//     if (index <= 100)
-//       // show the loading animation
-//       showLoading();
-//   }
-// });
-
-window.onscroll = function (ev) {
-  if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
-    if (index <= 100)
-      // show the loading animation
-      showLoading();
-  }
-};
-
-function showLoading() {
-  loading.classList.add("show");
-  callData();
-}
-
-function callData() {
-  for (let i = 0; i < 10; i++) {
-    console.log("callData called", i);
-    console.log("getPost index called", index);
-    getPost();
-  }
-
-  console.log("-------------------------------------------------");
-}
-
-async function getPost() {
-  if (index <= 100) {
-    const postResponse = await fetch(
-      `https://jsonplaceholder.typicode.com/posts/${index++}`
-    );
-
-    const postData = await postResponse.json();
-
-    const data = { post: postData };
-
-    addDataToDOM(data);
-  }
-}
 
 function addDataToDOM(data) {
   const postElement = document.createElement("div");
   postElement.classList.add("blog-post");
+  // <p class="ribbon">Promoted</p>
+
   postElement.innerHTML = `
-		<h2 class="title">${data.post.title}</h2>
-		<h2 class="title">${data.post.id}</h2>
-		<p class="text">${data.post.body}</p>
-	`;
+  <p class="ribbon">Promoted</p>
+    <img src=${data.post.image} class="image"/>
+    <span class="tags">${data.post.tags[0]}</span>
+    <span class="rank">#${data.post.ranking}</span>
+    <span class="rating">${data.post.rating}/5 </span>
+
+    <h2 class="title">${data.post.college_name}</h2>
+    <span> ${data.post.nearest_place[0]} |</span>
+    <span class="discount">${data.post.discount}</span>
+    <span class="original">&#x20B9;${data.post.original_fees}</span>  
+    <span class="discountedFees">&#x20B9;${data.post.discounted_fees}</span>
+    <span class="cycle">${data.post.fees_cycle}</span>
+
+    <span class="nearest">${data.post.nearest_place[1]}</span><br>
+    <p><span class="colortext">93% Match:</span> ${data.post.famous_nearest_places}</p><br/>
+    <p><span class="offer">${data.post.offertext}</span>  <span class="amenties"> ${data.post.amenties[0]}, ${data.post.amenties[1]}</span></p>
+    `;
   container.appendChild(postElement);
 
   loading.classList.remove("show");
 }
 
-callData();
+// callData();
